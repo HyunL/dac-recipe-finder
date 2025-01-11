@@ -1,0 +1,32 @@
+.search-bar-label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.search-bar {
+  padding: 10px;
+  font: 16px;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.results {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.meal-card {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.meal-img {
+  width: 100px;
+  margin-top: 10px;
+}
