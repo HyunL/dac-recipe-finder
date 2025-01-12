@@ -17,23 +17,23 @@
 
 ## Core Requirements
 
-- The user should be able to use this React app to: \*\*
+**The user should be able to use this React app to:**
 
-* Search for recipes by meal or ingredient name
-* See meal thumbnails and names in the search results
-* Clicking on a search result to navigate to a page with more details such as:
+- Search for recipes by meal or ingredient name
+- See meal thumbnails and names in the search results
+- Clicking on a search result to navigate to a page with more details such as:
   - Meal name
   - Category and cuisine
   - Instructions
   - Ingredients and measures
   - Meal thumbnail image
   - YouTube video (if available)
-* See appropriate error messages if:
+- See appropriate error messages if:
   - The API call fails.
   - No meals are found for the search term.
-* Use this web app on mobile and desktop
+- Use this web app on mobile and desktop
 
-Additional Requirements:
+**Additional Requirements:**
 
 - All of the components are functional requirements, so there should adequate examples of hooks being used.
 - For styling, a combination of custom styling and Bootstrap
