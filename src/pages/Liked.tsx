@@ -4,7 +4,7 @@ import RecipeList from "../components/RecipeList";
 
 import "./Liked.css";
 
-const PAGE_SIZE = 28;
+const PAGE_SIZE = 21;
 
 function Liked() {
   const [likedMeals, setLikedMeals] = useState<any[]>([]);

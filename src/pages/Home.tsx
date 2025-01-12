@@ -5,7 +5,7 @@ import RecipeList from "../components/RecipeList";
 import { Alert, Button } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
 
-const PAGE_SIZE = 15;
+const PAGE_SIZE = 14;
 
 function Home() {
   const [query, setQuery] = useState<string>(""); // User input
