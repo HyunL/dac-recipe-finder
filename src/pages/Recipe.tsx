@@ -81,9 +81,13 @@ const Recipe = () => {
         <p>
           <strong>Instructions:</strong>
         </p>
-        {instructionsList.map((instruction) => (
-          <p>Step {instruction}</p>
-        ))}
+        {/* 
+            instructions don't seem to have a standard format, if the steps aren't listed, 
+            preceeded by STEP, then just print the entire string
+        */}
+        {instructionsList.length !== 0
+          ? instructionsList.map((instruction) => <p>Step {instruction}</p>)
+          : meal.strInstructions}
       </Card>
     </div>
   ) : (
