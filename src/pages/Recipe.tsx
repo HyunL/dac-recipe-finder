@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import Image from "react-bootstrap/Image";
 import Badge from "react-bootstrap/Badge";
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 
 import "./Recipe.css";
 
@@ -12,6 +12,7 @@ const Recipe = () => {
   const [meal, setMeal] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     // Fetch data from the API when the component mounts or when 'i' changes
@@ -37,6 +38,35 @@ const Recipe = () => {
     fetchMeal();
   }, [idMeal]);
 
+  // Handles updating localStorage to persist list of liked recipes
+  const onLikeButtonClick = (meal: any) => {
+    const likedMeals = JSON.parse(localStorage.getItem("liked") || "[]");
+
+    // Create a meal object with all necessary information
+    const mealData = {
+      idMeal: meal.idMeal,
+      strMeal: meal.strMeal,
+      strMealThumb: meal.strMealThumb,
+    };
+
+    // Check if the meal is already in the likedMeals array
+    const mealIndex = likedMeals.findIndex(
+      (likedMeal: any) => likedMeal.idMeal === meal.idMeal
+    );
+
+    if (mealIndex === -1) {
+      // Add the new meal if it's not already in the liked meals array
+      likedMeals.push(mealData);
+      localStorage.setItem("liked", JSON.stringify(likedMeals));
+      setIsLiked(true); // Update the state to "liked"
+    } else {
+      // Remove the meal if it's already in the liked meals array (unlike)
+      likedMeals.splice(mealIndex, 1);
+      localStorage.setItem("liked", JSON.stringify(likedMeals));
+      setIsLiked(false); // Update the state to "unliked"
+    }
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
@@ -47,7 +77,15 @@ const Recipe = () => {
   return meal ? (
     <div className="recipe">
       <Card className="card">
-        <h1>{meal.strMeal}</h1>
+        <div className="title-wrapper">
+          <h1>{meal.strMeal}</h1>
+          <Button
+            variant={isLiked ? "danger" : "outline-danger"} // Change button color based on liked status
+            onClick={() => onLikeButtonClick(meal)}
+          >
+            {isLiked ? "❤️ Liked" : "❤️ Like"}
+          </Button>
+        </div>
         <div className="badge-container">
           <Badge pill bg="secondary">
             {meal.strCategory}
