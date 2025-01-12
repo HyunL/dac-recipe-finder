@@ -1,0 +1,23 @@
+.recipe {
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  display: inline-block;
+  min-width: fit-content;
+}
+
+.image {
+  max-width: min(100%, 400px);
+  width: auto;
+  margin-bottom: 30px;
+}
+
+.badge-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
