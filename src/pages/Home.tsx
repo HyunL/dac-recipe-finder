@@ -20,7 +20,7 @@ function Home() {
       const data1 = await mealSearchResponse.json();
 
       const ingredientSearchResponse = await fetch(
-        `https://www.themealdb.com/api/json/v1/1/filter.php?c=${searchTerm}`
+        `https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchTerm}`
       );
       const data2 = await ingredientSearchResponse.json();
 
