@@ -1,21 +1,14 @@
-.search-bar-label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.search-bar {
-  padding: 10px;
-  font: 16px;
-  width: 100%;
-  max-width: 400px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
 .search-results-container {
   margin-top: 40px;
 }
 
-.surprise-me-btn {
-  margin-top: 10px;
+.search-form {
+  margin-top: 40px;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0 30px;
 }
