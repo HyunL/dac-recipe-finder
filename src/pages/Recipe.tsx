@@ -76,8 +76,15 @@ const Recipe = () => {
             );
           })}
         </ul>
-      </Card>
-      <Card className="card">
+        {meal.strYoutube && (
+          <div className="youtube-player-wrapper">
+            <iframe
+              src={`https://www.youtube.com/embed/${meal.strYoutube.split("v=")[1]}`}
+              allow="autoplay; encrypted-media; fullscreen"
+              title="video"
+            />
+          </div>
+        )}
         <p>
           <strong>Instructions:</strong>
         </p>
