@@ -32,7 +32,7 @@ function Home() {
 
         setAreas(data.meals);
       } catch (error: any) {
-        console.error("Error fetching data:", error);
+        setErrorMessage(error?.message || "An unexpected error occurred.");
         setAreas([]);
       }
     };
@@ -50,7 +50,7 @@ function Home() {
 
         setCategories(data.meals);
       } catch (error: any) {
-        console.error("Error fetching data:", error);
+        setErrorMessage(error?.message || "An unexpected error occurred.");
         setCategories([]);
       }
     };
