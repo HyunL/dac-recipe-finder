@@ -2,19 +2,16 @@ import { useCallback, useState } from "react";
 
 import "./Home.css";
 import RecipeList from "../components/RecipeList";
+import { Alert } from "react-bootstrap";
 
 function Home() {
   const [query, setQuery] = useState<string>(""); // User input
-  const [results, setResults] = useState<any[]>([]); // API results
+  const [results, setResults] = useState<any[] | null>(null); // API results
   const [isLoading, setIsLoading] = useState<boolean>(false); // Loading state
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   // Fetch meals from API
   const fetchMeals = async (searchTerm: string) => {
-    if (!searchTerm) {
-      setIsLoading(false);
-      return;
-    }
-
     try {
       const response = await fetch(
         `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`
@@ -26,8 +23,8 @@ function Home() {
       } else {
         setResults([]); // No results
       }
-    } catch (error) {
-      console.error("Error fetching meals:", error);
+    } catch (error: any) {
+      setErrorMessage(error?.message || "An unexpected error occurred.");
       setResults([]);
     } finally {
       setIsLoading(false);
@@ -50,28 +47,45 @@ function Home() {
     const value = event.target.value;
     setQuery(value);
   };
+  console.log(results);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    setErrorMessage("");
     debouncedFetchMeals(query);
   };
+
+  const hasNoSearchResults = results !== null && results?.length === 0;
 
   return (
     <div>
       <form className="search-bar-container" onSubmit={handleSubmit}>
         <label htmlFor="search-bar" className="search-bar-label">
-          Search for a meal:
+          Search for a recipe:
         </label>
         <input
           type="text"
           id="search-bar"
           className="search-bar"
-          placeholder="Type a meal"
+          placeholder="Type a recipe"
           value={query}
           onChange={handleInputChange}
+          required
         />
+        {errorMessage && (
+          <Alert variant="danger" className="mt-3">
+            <strong>Error:</strong> {errorMessage}
+          </Alert>
+        )}
       </form>
-      {isLoading ? <div>LOADING</div> : <RecipeList recipes={results} />}
+      {isLoading ? (
+        <div>LOADING</div>
+      ) : hasNoSearchResults ? (
+        <div>No recipe matching your search</div>
+      ) : (
+        <RecipeList recipes={results || []} />
+      )}
+      {/* {hasNoSearchResults && <div>No recipe matching your search</div>} */}
     </div>
   );
 }
