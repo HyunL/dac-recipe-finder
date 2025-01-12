@@ -12,6 +12,10 @@
   border-radius: 5px;
 }
 
-.search-bar-container {
-  margin-bottom: 40px;
+.search-results-container {
+  margin-top: 40px;
+}
+
+.surprise-me-btn {
+  margin-top: 10px;
 }

@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 
 import "./Home.css";
 import RecipeList from "../components/RecipeList";
-import { Alert } from "react-bootstrap";
+import { Alert, Button } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
 
 function Home() {
@@ -39,6 +39,27 @@ function Home() {
     }
   };
 
+  // Fetch random meal from API
+  const fetchRandomMeal = async () => {
+    try {
+      const response = await fetch(
+        "https://www.themealdb.com/api/json/v1/1/random.php"
+      );
+      const data = await response.json();
+
+      if (data) {
+        setResults(data.meals);
+      } else {
+        setResults([]);
+      }
+    } catch (error: any) {
+      setErrorMessage(error?.message || "An unexpected error occurred.");
+      setResults([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Debounce function to limit API calls
   const debounce = (func: (searchTerm: string) => void, delay: number) => {
     let timeout: ReturnType<typeof setTimeout>;
@@ -62,11 +83,16 @@ function Home() {
     debouncedFetchMeals(query);
   };
 
+  const onSurpriseMeClick = () => {
+    setErrorMessage("");
+    fetchRandomMeal();
+  };
+
   const hasNoSearchResults = results !== null && results?.length === 0;
 
   return (
     <div>
-      <form className="search-bar-container" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="search-bar" className="search-bar-label">
           Search for a recipe:
         </label>
@@ -79,19 +105,24 @@ function Home() {
           onChange={handleInputChange}
           required
         />
-        {errorMessage && (
-          <Alert variant="danger" className="mt-3">
-            <strong>Error:</strong> {errorMessage}
-          </Alert>
-        )}
       </form>
-      {isLoading ? (
-        <Spinner animation="border" variant="primary" />
-      ) : hasNoSearchResults ? (
-        <div>No recipe matching your search</div>
-      ) : (
-        <RecipeList recipes={results || []} />
+      <Button className="surprise-me-btn" onClick={onSurpriseMeClick}>
+        Surprise Me!
+      </Button>
+      {errorMessage && (
+        <Alert variant="danger" className="mt-3">
+          <strong>Error:</strong> {errorMessage}
+        </Alert>
       )}
+      <div className="search-results-container">
+        {isLoading ? (
+          <Spinner animation="border" variant="primary" />
+        ) : hasNoSearchResults ? (
+          <div>No recipe matching your search</div>
+        ) : (
+          <RecipeList recipes={results || []} />
+        )}
+      </div>
     </div>
   );
 }
