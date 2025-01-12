@@ -1,50 +1,64 @@
-# React + TypeScript + Vite
+# Hyunjin Lee: DAC Frontend Developer Assignment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Setup and Usage
 
-Currently, two official plugins are available:
+1. Clone the repo ([read this](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) if you need help)
+2. run `npm install` to install dependancies,
+3. run `npm run dev` to start the development server. You'll be able to access the React app at the address labeled `local:`. `http://localhost:5173/` in the example below.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+  VITE v6.0.7  ready in 117 ms
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
 ```
+
+## Core Requirements
+
+- The user should be able to use this React app to: \*\*
+
+* Search for recipes by meal or ingredient name
+* See meal thumbnails and names in the search results
+* Clicking on a search result to navigate to a page with more details such as:
+  - Meal name
+  - Category and cuisine
+  - Instructions
+  - Ingredients and measures
+  - Meal thumbnail image
+  - YouTube video (if available)
+* See appropriate error messages if:
+  - The API call fails.
+  - No meals are found for the search term.
+* Use this web app on mobile and desktop
+
+Additional Requirements:
+
+- All of the components are functional requirements, so there should adequate examples of hooks being used.
+- For styling, a combination of custom styling and Bootstrap
+
+## All 5 Bonus Features Completed! 🎉:
+
+- Favorites List:
+
+  - Users are able to save their favourite recipes by clicking the like button on the recipe page
+  - Users can view their liked recipes navigating to the `/liked` page. Accessible via the nav bar.
+
+- Random Meal Feature:
+
+  - Users can view a random recipe by clicking the "Surprise Me!" button, found on the homepage
+
+    ![alt text](image.png)
+
+- Filter by Category or Area:
+
+  - Users can view all foods by `categories` and `areas`
+
+- Debounced Search:
+
+  - allows for search results that update as the user types, while limiting number of API calls
+
+- Pagination:
+  - Page sizes of 14 for the search results (try searching by category -> "Beef" to test pagination)
+  - Page sizes of 21 for the liked recipes page
