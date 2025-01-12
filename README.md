@@ -63,3 +63,9 @@
 - Pagination:
   - Page sizes of 14 for the search results (try searching by category -> "Beef" to test pagination)
   - Page sizes of 21 for the liked recipes page
+
+## Potential Improvements
+
+Given a bit more time, I think I would have spent it cleaning up the code a bit, which is especially importantm in a team environment.
+
+I think I would focus on Home.tsx first, since it's the largest file and it's doing a lot. To improve readability, I would like to break up some of this file into smaller components (e.g. make a search form ui component)
