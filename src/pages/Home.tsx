@@ -62,6 +62,10 @@ function Home() {
   const fetchMeals = async (searchTerm: string) => {
     try {
       if (searchMode === SearchMode.Text) {
+        if (searchTerm.length === 0) {
+          throw new Error("Search term cannot be empty.");
+        }
+
         const mealSearchResponse = await fetch(
           `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`
         );
@@ -164,6 +168,8 @@ function Home() {
   };
 
   const onSelectFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setErrorMessage("");
+
     const filterValue = event.target.value;
     if (filterValue) {
       fetchMeals(filterValue); // Use the fetchMeals function directly
@@ -238,20 +244,21 @@ function Home() {
           </div>
         )}
       </Form>
-      {errorMessage && (
+      {errorMessage ? (
         <Alert variant="danger" className="mt-3">
           <strong>Error:</strong> {errorMessage}
         </Alert>
+      ) : (
+        <div className="search-results-container">
+          {isLoading ? (
+            <Spinner animation="border" variant="primary" />
+          ) : hasNoSearchResults ? (
+            <div>No recipe matching your search</div>
+          ) : (
+            <RecipeList recipes={results || []} pageSize={PAGE_SIZE} />
+          )}
+        </div>
       )}
-      <div className="search-results-container">
-        {isLoading ? (
-          <Spinner animation="border" variant="primary" />
-        ) : hasNoSearchResults ? (
-          <div>No recipe matching your search</div>
-        ) : (
-          <RecipeList recipes={results || []} pageSize={PAGE_SIZE} />
-        )}
-      </div>
     </div>
   );
 }

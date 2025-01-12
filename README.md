@@ -31,6 +31,7 @@
 - See appropriate error messages if:
   - The API call fails.
   - No meals are found for the search term.
+  - The user tries to search with an empty input.
 - Use this web app on mobile and desktop
 
 **Additional Requirements:**
