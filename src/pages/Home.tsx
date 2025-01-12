@@ -5,6 +5,8 @@ import RecipeList from "../components/RecipeList";
 import { Alert, Button } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
 
+const PAGE_SIZE = 15;
+
 function Home() {
   const [query, setQuery] = useState<string>(""); // User input
   const [results, setResults] = useState<any[] | null>(null); // API results
@@ -25,12 +27,17 @@ function Home() {
       const data2 = await ingredientSearchResponse.json();
 
       // Ensure that both data1.meals and data2.meals are treated as empty arrays if they are null or undefined
-      const results = [
+      const combinedResults = [
         ...(data1.meals || []), // If data1.meals is null/undefined, use an empty array
         ...(data2.meals || []), // If data2.meals is null/undefined, use an empty array
       ];
 
-      setResults(results);
+      // Remove duplicates by `idMeal`
+      const uniqueResults = Array.from(
+        new Map(combinedResults.map((meal) => [meal.idMeal, meal])).values()
+      );
+
+      setResults(uniqueResults);
     } catch (error: any) {
       setErrorMessage(error?.message || "An unexpected error occurred.");
       setResults([]);
@@ -120,7 +127,7 @@ function Home() {
         ) : hasNoSearchResults ? (
           <div>No recipe matching your search</div>
         ) : (
-          <RecipeList recipes={results || []} />
+          <RecipeList recipes={results || []} pageSize={PAGE_SIZE} />
         )}
       </div>
     </div>
