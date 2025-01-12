@@ -3,6 +3,7 @@ import { useCallback, useState } from "react";
 import "./Home.css";
 import RecipeList from "../components/RecipeList";
 import { Alert } from "react-bootstrap";
+import Spinner from "react-bootstrap/Spinner";
 
 function Home() {
   const [query, setQuery] = useState<string>(""); // User input
@@ -47,7 +48,6 @@ function Home() {
     const value = event.target.value;
     setQuery(value);
   };
-  console.log(results);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -79,7 +79,7 @@ function Home() {
         )}
       </form>
       {isLoading ? (
-        <div>LOADING</div>
+        <Spinner animation="border" variant="primary" />
       ) : hasNoSearchResults ? (
         <div>No recipe matching your search</div>
       ) : (
