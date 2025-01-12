@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 
 import "./Home.css";
+import RecipeList from "../components/RecipeList";
 
 function Home() {
   const [query, setQuery] = useState<string>(""); // User input
@@ -55,7 +56,7 @@ function Home() {
 
   return (
     <div>
-      <div>
+      <div className="search-bar-container">
         <label htmlFor="search-bar" className="search-bar-label">
           Search for a meal:
         </label>
@@ -68,24 +69,7 @@ function Home() {
           onChange={handleInputChange}
         />
       </div>
-      {isLoading ? (
-        <div>LOADING</div>
-      ) : (
-        <ul className="results">
-          {results.map((meal) => (
-            <li key={meal.idMeal} className="meal-card">
-              <strong>{meal.strMeal}</strong>
-              <br />
-              <img
-                src={meal.strMealThumb}
-                alt={meal.strMeal}
-                className="meal-img"
-                style={{ width: "100px", marginTop: "10px" }}
-              />
-            </li>
-          ))}
-        </ul>
-      )}
+      {isLoading ? <div>LOADING</div> : <RecipeList recipes={results} />}
     </div>
   );
 }

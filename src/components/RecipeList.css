@@ -1,0 +1,14 @@
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+}
+
+.meal-card {
+  padding: 0;
+}
+
+.meal-img {
+  width: 100px;
+  margin-top: 10px;
+}
