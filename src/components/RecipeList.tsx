@@ -2,6 +2,7 @@ import "./RecipeList.css";
 
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
 const RecipeList = (props: { recipes: any[] }) => {
   return (
@@ -12,7 +13,9 @@ const RecipeList = (props: { recipes: any[] }) => {
             <Card.Img variant="top" src={meal.strMealThumb} />
             <Card.Body>
               <Card.Title>{meal.strMeal}</Card.Title>
-              <Button variant="primary">Recipe</Button>
+              <Link to={`/recipe/${meal.idMeal}`}>
+                <Button variant="primary">Recipe</Button>
+              </Link>
             </Card.Body>
           </Card>
         ))}
