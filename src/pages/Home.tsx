@@ -11,7 +11,6 @@ function Home() {
   // Fetch meals from API
   const fetchMeals = async (searchTerm: string) => {
     if (!searchTerm) {
-      setResults([]);
       setIsLoading(false);
       return;
     }
@@ -50,13 +49,16 @@ function Home() {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setQuery(value);
-    debouncedFetchMeals(value);
-    console.log(results);
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    debouncedFetchMeals(query);
   };
 
   return (
     <div>
-      <div className="search-bar-container">
+      <form className="search-bar-container" onSubmit={handleSubmit}>
         <label htmlFor="search-bar" className="search-bar-label">
           Search for a meal:
         </label>
@@ -68,7 +70,7 @@ function Home() {
           value={query}
           onChange={handleInputChange}
         />
-      </div>
+      </form>
       {isLoading ? <div>LOADING</div> : <RecipeList recipes={results} />}
     </div>
   );
